@@ -3,14 +3,14 @@ import java.awt.*;
 
 public class ConverterView {
 
-	JComboBox inputBox;
-	JComboBox outputBox;
-	JTextField inputTextField;
-	JTextField outputTextField;
-	JButton convertButton;
-	JPanel panel1;
-	JPanel panel2;
-	JFrame frame;
+	private JComboBox<Units> inputBox;
+	private JComboBox<Units> outputBox;
+	private JTextField sourceValue;
+	private JTextField targetValue;
+	private JButton convertButton;
+	private JPanel panel1;
+	private JPanel panel2;
+	private JFrame frame;
 
 	public ConverterView() {
 		createComponents();
@@ -28,24 +28,21 @@ public class ConverterView {
 		panel1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 		panel2 = new JPanel(new GridBagLayout());
 
-		inputTextField = new JTextField();
-		inputTextField.setPreferredSize(new Dimension(100, 20));
-		outputTextField = new JTextField();
-		outputTextField.setPreferredSize(new Dimension(100, 20));
+		sourceValue = new JTextField();
+		sourceValue.setPreferredSize(new Dimension(100, 20));
+		targetValue = new JTextField();
+		targetValue.setPreferredSize(new Dimension(100, 20));
 
 		convertButton = new JButton("Convert");
 
-		String[] inputUnits = { "inch", "centimeter"};
-		String[] outputUnits = { "centimeter", "inch"};
-
-		inputBox = new JComboBox(inputUnits);
-		outputBox = new JComboBox(outputUnits);
+		inputBox = new JComboBox<>(Units.values());
+		outputBox = new JComboBox<>(Units.values());
 	}
 
 	private void layoutComponents() {
-		panel1.add(inputTextField);
+		panel1.add(sourceValue);
 		panel1.add(inputBox);
-		panel1.add(outputTextField);
+		panel1.add(targetValue);
 		panel1.add(outputBox);
 
 		panel2.add(convertButton);
@@ -55,17 +52,25 @@ public class ConverterView {
 
 		frame.setLocationRelativeTo(null);
 	}
-	
+
+	protected void updateOutputView(int number) {
+		targetValue.setText(String.valueOf(number));
+	}
+
 	protected JButton getConvertButton() {
 		return convertButton;
 	}
-	
-	protected String getInputTextField() {
-		return (String) inputTextField.getText();
+
+	protected int getSourceValue() {
+		return Integer.parseInt(sourceValue.getText());
+	}
+
+	protected Units getInputUnit() {
+		return (Units) inputBox.getSelectedItem();
 	}
 	
-	protected String getInputUnit() {
-		return (String) inputBox.getSelectedItem();
+	protected Units getOutputUnit() {
+		return (Units) outputBox.getSelectedItem();
 	}
 
 }

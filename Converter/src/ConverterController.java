@@ -8,31 +8,31 @@ public class ConverterController {
 	public ConverterController(ConverterModel model, ConverterView view) {
 		this.model = model;
 		this.view = view;
+		this.addListeners();
 	}
 
 	private void addListeners() {
-
 		view.getConvertButton().addActionListener(this::convert);
-
 	}
 
-	private void converct(ActionEvent e) {
+	private void convert(ActionEvent e) {
 
-		Double inputText = Double.parseDouble(view.getInputTextField().getText());
+		int input = view.getSourceValue();
+		int result = 0;
 
-		if (view.getInputUnit().equals("inch")) {
-			
-			Double output;
-			output = inputText * model.getCentimeter();
-			view.outputTextField.setText(String.valueOf(output));
+		if (view.getInputUnit() == Units.CENTIMETRE && view.getOutputUnit() == Units.METRE) {
 
-		} else if (view.getInputTextField().equals("centimeter")) {
+			result = model.convertCentimetreToMetre(input);
 
-			Double output;
-			output = inputText * model.getFoot();
-			view.outputTextField.setText(String.valueOf(output));
+		} else if (view.getInputUnit() == Units.METRE && view.getOutputUnit() == Units.CENTIMETRE) {
 
+			result = model.convertMetreToCentimetre(input);
+
+		} else if (view.getInputUnit() == view.getOutputUnit()) {
+			System.out.println("Fehler");
 		}
+
+		view.updateOutputView(result);
 
 	}
 
