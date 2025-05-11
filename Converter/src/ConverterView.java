@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * View class responsible for creating and displaying the GUI of the unit
+ * converter. It provides access to key UI components for the controller to
+ * interact with.
+ */
 public class ConverterView {
 
 	private static final Dimension FIELD_SIZE = new Dimension(100, 20);
@@ -27,6 +32,9 @@ public class ConverterView {
 
 	GridBagConstraints gbc;
 
+	/**
+	 * Constructs the view and initializes all components and layout.
+	 */
 	public ConverterView() {
 		createComponents();
 		layoutComponents();
@@ -34,8 +42,10 @@ public class ConverterView {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Initializes all Swing components used in the UI.
+	 */
 	private void createComponents() {
-
 		titleLabel = new JLabel("Unit Converter");
 		titleLabel.setFont(new Font("Calibri", Font.BOLD, 20));
 
@@ -52,6 +62,7 @@ public class ConverterView {
 		inputLabel = new JLabel("Input:");
 		inputValueTextField = new JTextField();
 		inputValueTextField.setPreferredSize(FIELD_SIZE);
+
 		resultLabel = new JLabel("Result:");
 		outputValueTextField = new JTextField();
 		outputValueTextField.setPreferredSize(FIELD_SIZE);
@@ -78,8 +89,10 @@ public class ConverterView {
 		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 	}
 
+	/**
+	 * Arranges the components on the frame using GridBagLayout and FlowLayouts.
+	 */
 	private void layoutComponents() {
-
 		upperPanel.add(titleLabel);
 
 		gbc.insets = new Insets(10, 5, 10, 5);
@@ -101,34 +114,52 @@ public class ConverterView {
 		frame.add(lowerPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Adds a component to a panel using GridBagConstraints.
+	 *
+	 * @param panel the panel to add to
+	 * @param comp  the component to add
+	 * @param x     grid x position
+	 * @param y     grid y position
+	 */
 	private void addComponent(JPanel panel, Component comp, int x, int y) {
 		gbc.gridx = x;
 		gbc.gridy = y;
 		panel.add(comp, gbc);
 	}
 
+	/** @return the category combo box */
 	protected JComboBox<UnitCategory> getCategoryBox() {
 		return categoryBox;
 	}
 
+	/** @return the input unit combo box */
 	protected JComboBox<Units> getInputBoxUnit() {
 		return inputBoxUnit;
 	}
 
+	/** @return the output unit combo box */
 	protected JComboBox<Units> getOutputBoxUnit() {
 		return outputBoxUnit;
 	}
 
+	/** @return the text field displaying the result */
 	protected JTextField getOutputValueTextField() {
 		return outputValueTextField;
 	}
 
+	/**
+	 * Parses the value from the input field as double.
+	 *
+	 * @return the numeric input value entered by the user
+	 * @throws NumberFormatException if the input is not a valid number
+	 */
 	protected double getInputValue() {
 		return Double.parseDouble(inputValueTextField.getText());
 	}
 
+	/** @return the convert button */
 	protected JButton getConvertButton() {
 		return convertButton;
 	}
-
 }
