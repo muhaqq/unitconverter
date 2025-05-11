@@ -10,7 +10,7 @@ public class ConverterView {
 
 	private static final Dimension FIELD_SIZE = new Dimension(100, 20);
 	private static final Dimension BUTTON_SIZE = new Dimension(250, 30);
-	private static final Dimension WINDOW_SIZE = new Dimension(450, 450);
+	private static final Dimension WINDOW_SIZE = new Dimension(450, 300);
 
 	private JFrame frame;
 
