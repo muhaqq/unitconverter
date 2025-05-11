@@ -1,0 +1,4 @@
+
+public enum UnitCategory {
+	LENGTH, WEIGHT, TEMPERATURE, TIME, VOLUME, AREA, SPEED, ENERGY
+}

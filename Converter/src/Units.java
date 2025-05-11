@@ -1,4 +1,6 @@
 
-public enum Units {
-	METRE, CENTIMETRE
+public interface Units {
+	
+	double getToBaseFactor();
+	
 }

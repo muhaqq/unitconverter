@@ -1,12 +1,9 @@
 
 public class ConverterModel {
 
-	protected int convertMetreToCentimetre(int metre) {
-		return metre * 100;
+	protected double convertUnit(double value, Units from, Units to) {
+		double base = value * from.getToBaseFactor();
+		return base / to.getToBaseFactor();
 	}
-	
-	protected int convertCentimetreToMetre(int centimetre) {
-		return centimetre / 100;
-	}
-	
+
 }

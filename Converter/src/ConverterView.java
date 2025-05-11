@@ -3,14 +3,29 @@ import java.awt.*;
 
 public class ConverterView {
 
-	private JComboBox<Units> inputBox;
-	private JComboBox<Units> outputBox;
-	private JTextField sourceValue;
-	private JTextField targetValue;
-	private JButton convertButton;
-	private JPanel panel1;
-	private JPanel panel2;
+	private static final Dimension FIELD_SIZE = new Dimension(100, 20);
+	private static final Dimension BUTTON_SIZE = new Dimension(250, 30);
+	private static final Dimension WINDOW_SIZE = new Dimension(450, 450);
+
 	private JFrame frame;
+
+	private JLabel titleLabel;
+	private JLabel categoryLabel;
+	private JLabel resultLabel;
+	private JLabel inputLabel;
+
+	private JComboBox<UnitCategory> categoryBox;
+	private JComboBox<Units> inputBoxUnit, outputBoxUnit;
+
+	private JButton convertButton;
+
+	private JPanel upperPanel;
+	private JPanel middlePanel;
+	private JPanel lowerPanel;
+
+	private JTextField inputValueTextField, outputValueTextField;
+
+	GridBagConstraints gbc;
 
 	public ConverterView() {
 		createComponents();
@@ -20,57 +35,100 @@ public class ConverterView {
 	}
 
 	private void createComponents() {
+
+		titleLabel = new JLabel("Unit Converter");
+		titleLabel.setFont(new Font("Calibri", Font.BOLD, 20));
+
+		gbc = new GridBagConstraints();
+
 		frame = new JFrame("Unit Converter");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(600, 100));
-		frame.setLayout(new GridLayout(2, 0));
+		frame.setPreferredSize(WINDOW_SIZE);
+		frame.setResizable(false);
+		frame.setLayout(new BorderLayout());
+		frame.setLocationRelativeTo(null);
 
-		panel1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		panel2 = new JPanel(new GridBagLayout());
-
-		sourceValue = new JTextField();
-		sourceValue.setPreferredSize(new Dimension(100, 20));
-		targetValue = new JTextField();
-		targetValue.setPreferredSize(new Dimension(100, 20));
+		categoryLabel = new JLabel("Category:");
+		inputLabel = new JLabel("Input:");
+		inputValueTextField = new JTextField();
+		inputValueTextField.setPreferredSize(FIELD_SIZE);
+		resultLabel = new JLabel("Result:");
+		outputValueTextField = new JTextField();
+		outputValueTextField.setPreferredSize(FIELD_SIZE);
+		outputValueTextField.setBackground(new Color(245, 245, 245));
+		outputValueTextField.setFont(new Font("Calibri", Font.BOLD, 12));
+		outputValueTextField.setEditable(false);
 
 		convertButton = new JButton("Convert");
+		convertButton.setPreferredSize(BUTTON_SIZE);
+		convertButton.setFont(new Font("Calibri", Font.BOLD, 15));
 
-		inputBox = new JComboBox<>(Units.values());
-		outputBox = new JComboBox<>(Units.values());
+		inputBoxUnit = new JComboBox<>(Length.values());
+		outputBoxUnit = new JComboBox<>(Length.values());
+		categoryBox = new JComboBox<>(UnitCategory.values());
+
+		upperPanel = new JPanel();
+		upperPanel.setBackground(Color.LIGHT_GRAY);
+		upperPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+		middlePanel = new JPanel();
+		middlePanel.setLayout(new GridBagLayout());
+
+		lowerPanel = new JPanel();
+		lowerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 	}
 
 	private void layoutComponents() {
-		panel1.add(sourceValue);
-		panel1.add(inputBox);
-		panel1.add(targetValue);
-		panel1.add(outputBox);
 
-		panel2.add(convertButton);
+		upperPanel.add(titleLabel);
 
-		frame.add(panel1);
-		frame.add(panel2);
+		gbc.insets = new Insets(10, 5, 10, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		frame.setLocationRelativeTo(null);
+		addComponent(middlePanel, categoryLabel, 0, 0);
+		addComponent(middlePanel, categoryBox, 1, 0);
+		addComponent(middlePanel, inputLabel, 0, 1);
+		addComponent(middlePanel, inputValueTextField, 1, 1);
+		addComponent(middlePanel, inputBoxUnit, 2, 1);
+		addComponent(middlePanel, resultLabel, 0, 4);
+		addComponent(middlePanel, outputValueTextField, 1, 4);
+		addComponent(middlePanel, outputBoxUnit, 2, 4);
+
+		lowerPanel.add(convertButton);
+
+		frame.add(upperPanel, BorderLayout.NORTH);
+		frame.add(middlePanel, BorderLayout.CENTER);
+		frame.add(lowerPanel, BorderLayout.SOUTH);
 	}
 
-	protected void updateOutputView(int number) {
-		targetValue.setText(String.valueOf(number));
+	private void addComponent(JPanel panel, Component comp, int x, int y) {
+		gbc.gridx = x;
+		gbc.gridy = y;
+		panel.add(comp, gbc);
+	}
+
+	protected JComboBox<UnitCategory> getCategoryBox() {
+		return categoryBox;
+	}
+
+	protected JComboBox<Units> getInputBoxUnit() {
+		return inputBoxUnit;
+	}
+
+	protected JComboBox<Units> getOutputBoxUnit() {
+		return outputBoxUnit;
+	}
+
+	protected JTextField getOutputValueTextField() {
+		return outputValueTextField;
+	}
+
+	protected double getInputValue() {
+		return Double.parseDouble(inputValueTextField.getText());
 	}
 
 	protected JButton getConvertButton() {
 		return convertButton;
-	}
-
-	protected int getSourceValue() {
-		return Integer.parseInt(sourceValue.getText());
-	}
-
-	protected Units getInputUnit() {
-		return (Units) inputBox.getSelectedItem();
-	}
-	
-	protected Units getOutputUnit() {
-		return (Units) outputBox.getSelectedItem();
 	}
 
 }
