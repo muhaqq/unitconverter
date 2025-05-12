@@ -1,3 +1,5 @@
+import unitcategories.Units;
+
 /**
  * The model class responsible for unit conversion logic.
  */

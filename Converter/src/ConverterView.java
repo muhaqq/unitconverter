@@ -1,4 +1,9 @@
 import javax.swing.*;
+
+import unitcategories.Length;
+import unitcategories.UnitCategory;
+import unitcategories.Units;
+
 import java.awt.*;
 
 /**

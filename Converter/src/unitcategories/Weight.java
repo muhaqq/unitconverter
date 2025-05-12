@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Enum representing weight units and their conversion factors to the base unit
  * (kilogram).

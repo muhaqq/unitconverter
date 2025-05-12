@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Represents the broad categories of measurable units used in the converter.
  *

@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Enum representing different units of speed and their conversion factors to
  * the base unit (metres per second).

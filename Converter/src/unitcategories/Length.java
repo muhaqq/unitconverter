@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Enum representing various units of length and their conversion factors to the
  * base unit (metre).

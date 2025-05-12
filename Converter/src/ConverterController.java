@@ -3,6 +3,17 @@ import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
+import unitcategories.Area;
+import unitcategories.Energy;
+import unitcategories.Length;
+import unitcategories.Speed;
+import unitcategories.Temperature;
+import unitcategories.Time;
+import unitcategories.UnitCategory;
+import unitcategories.Units;
+import unitcategories.Volume;
+import unitcategories.Weight;
+
 /**
  * Controller class that connects the ConverterModel and ConverterView.
  * 

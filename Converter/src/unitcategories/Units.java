@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * A marker interface for unit enums that support conversion to a common base
  * unit.

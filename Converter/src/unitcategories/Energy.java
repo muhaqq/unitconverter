@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Enum representing various units of energy and their conversion factors to the
  * base unit (joule).

@@ -1,3 +1,4 @@
+package unitcategories;
 /**
  * Enum representing volume units and their conversion factors to the base unit
  * (litre).

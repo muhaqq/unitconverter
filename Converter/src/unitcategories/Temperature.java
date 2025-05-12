@@ -1,3 +1,4 @@
+package unitcategories;
 public enum Temperature implements Units {
 	CELSIUS, FAHRENHEIT, KELVIN;
 
