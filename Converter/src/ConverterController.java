@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  * Controller class that connects the ConverterModel and ConverterView.
@@ -67,21 +68,26 @@ public class ConverterController {
 	}
 
 	/**
-	 * Converts the input value from the selected input unit to the selected output
-	 * unit.
-	 * 
-	 * This method is triggered when the user clicks the "Convert" button. It
-	 * retrieves the numeric value and selected units from the view, performs the
-	 * conversion via the model, and then updates the output field with the result.
-	 * 
+	 * Handles the conversion logic when the user clicks the "Convert" button.
+	 *
+	 * Retrieves the input value and selected units from the view, delegates the
+	 * conversion to the model, and displays the result rounded to 4 decimal places.
+	 * If the input is invalid (non-numeric), an error message is shown.
+	 *
 	 * @param e the ActionEvent triggered by clicking the "Convert" button
 	 */
 	private void convert(ActionEvent e) {
-		double value = view.getInputValue();
-		Units inputType = (Units) view.getInputBoxUnit().getSelectedItem();
-		Units outputType = (Units) view.getOutputBoxUnit().getSelectedItem();
+		try {
+			double value = view.getInputValue();
+			Units inputType = (Units) view.getInputBoxUnit().getSelectedItem();
+			Units outputType = (Units) view.getOutputBoxUnit().getSelectedItem();
+			double output = model.convertUnit(value, inputType, outputType);
+			String formatted = String.format("%.4f", output);
+			view.getOutputValueTextField().setText(formatted);
 
-		double output = model.convertUnit(value, inputType, outputType);
-		view.getOutputValueTextField().setText(String.valueOf(output));
+		} catch (NumberFormatException exception) {
+			JOptionPane.showMessageDialog(null, "Please enter a valid input!", "Input Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
