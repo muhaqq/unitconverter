@@ -27,15 +27,6 @@ public class ConverterController {
 	private final ConverterView view;
 
 	/**
-	 * A predefined mapping from unit categories (e.g., LENGTH, TIME) to the
-	 * corresponding enum values that implement the Units interface.
-	 */
-	private final Map<UnitCategory, Units[]> unitMap = Map.of(UnitCategory.LENGTH, Length.values(), UnitCategory.WEIGHT,
-			Weight.values(), UnitCategory.TEMPERATURE, Temperature.values(), UnitCategory.TIME, Time.values(),
-			UnitCategory.VOLUME, Volume.values(), UnitCategory.AREA, Area.values(), UnitCategory.SPEED, Speed.values(),
-			UnitCategory.ENERGY, Energy.values());
-
-	/**
 	 * Constructs the controller, assigns the model and view, and registers UI event
 	 * listeners.
 	 *
@@ -70,7 +61,7 @@ public class ConverterController {
 	 */
 	private void selectUnit(ActionEvent e) {
 		UnitCategory selectedCategory = (UnitCategory) view.getCategoryBox().getSelectedItem();
-		Units[] units = unitMap.get(selectedCategory);
+		Units[] units = model.unitMap.get(selectedCategory);
 
 		if (units != null) {
 			view.getInputBoxUnit().setModel(new DefaultComboBoxModel<>(units));
@@ -93,8 +84,8 @@ public class ConverterController {
 			Units inputType = (Units) view.getInputBoxUnit().getSelectedItem();
 			Units outputType = (Units) view.getOutputBoxUnit().getSelectedItem();
 			double output = model.convertUnit(value, inputType, outputType);
-			String formatted = String.format("%.4f", output);
-			view.getOutputValueTextField().setText(formatted);
+//			String formatted = String.format("%.4f", output);
+			view.getOutputValueTextField().setText(String.valueOf(output));
 
 		} catch (NumberFormatException exception) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid input!", "Input Error",
